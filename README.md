@@ -174,16 +174,6 @@ kurbelkunst-winter-games/
 └── README.md
 ```
 
-## 8. Vor dem offiziellen Start prüfen
-
-- [ ] Alle 14 Motive, Angaben und Vorschaubilder sind final.
-- [ ] Strecken sind sicher, legal befahrbar und getestet.
-- [ ] Offizielle Vereinsfarben und finales Logo sind bestätigt.
-- [ ] Datum, Regeln, Verantwortliche und Kontaktmöglichkeit sind festgelegt.
-- [ ] Impressum/Anbieterinformationen und Datenschutzhinweise sind entsprechend dem tatsächlichen Betrieb ergänzt.
-- [ ] Entscheiden, ob GPX-Downloads wirklich öffentlich sein sollen.
-- [ ] Falls Bestenliste öffentlich: Einwilligung und Überprüfungsprozess festlegen.
-- [ ] URL der offiziellen Vereinswebseite ergänzen (aktuell noch nicht bekannt).
 
 ## Pflegeaufwand
 
