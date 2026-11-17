@@ -1,0 +1,9 @@
+/* Language switcher (kept separate from styles.css to avoid merge conflicts) */
+.lang-switch{display:inline-flex;gap:2px;margin-left:6px;padding:3px;border:1px solid #d0d3ed;border-radius:100px}
+.nav .lang-switch button{padding:7px 11px;font-size:11px;font-weight:800;letter-spacing:.08em;color:#6a6e8d;border-radius:100px}
+.nav .lang-switch button.active{background:#1b2052;color:#fff}
+.nav .lang-switch button:not(.active):hover{background:#e7e7ff;color:#434bf0}
+.legal-page .lang-switch{margin:0 0 24px}
+.legal-page .lang-switch button{border:0;background:none;padding:7px 11px;font-size:11px;font-weight:800;border-radius:100px;color:#6a6e8d}
+.legal-page .lang-switch button.active{background:#1b2052;color:#fff}
+@media(max-width:620px){.nav .lang-switch{align-self:flex-start;margin:8px 0 0 12px}}

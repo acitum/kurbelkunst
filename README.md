@@ -178,3 +178,13 @@ kurbelkunst-winter-games/
 ## Pflegeaufwand
 
 Bei einer neuen Zeichnung: Bild + GPX ablegen, JSON-Eintrag aktualisieren, `git push` – die Hosting-Plattform veröffentlicht die Änderung automatisch. Keine Datenbankadministration für die statische Version nötig.
+
+## Mehrsprachigkeit (DE / EN)
+
+Die Seite ist zweisprachig; oben rechts gibt es einen Sprachumschalter. Die Wahl wird im Browser gespeichert, ansonsten gilt die Browsersprache. Mit `?lang=en` kann man direkt auf die englische Version verlinken.
+
+- **Deutsch ist die Ausgangssprache.** Deutsche Texte stehen weiterhin direkt im Code, nur umschlossen von `t('…')`, z. B. `{t('Motiv aussuchen')}`.
+- **Übersetzungen** stehen in `src/locales/en.js`: deutscher Text → englischer Text, Motive (`motifs.json`) nach `id`.
+- **Fehlt eine Übersetzung, wird der deutsche Text angezeigt** – neue oder geänderte Texte machen also nichts kaputt.
+- `npm run i18n:check` listet fehlende und veraltete Übersetzungen auf.
+- **Neue Sprache:** `src/locales/en.js` kopieren (z. B. `fr.js`), übersetzen und in `LANGUAGES` in `src/i18n.jsx` eintragen.

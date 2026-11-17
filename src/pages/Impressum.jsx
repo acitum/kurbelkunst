@@ -1,44 +1,42 @@
 
+import { LanguageSwitcher, useI18n } from '../i18n';
+
 export default function Impressum() {
+  const { t } = useI18n();
   return (
     <main className="legal-page">
-      <h1>Impressum</h1>
+      <p><a href="/">← {t('Zurück zur Startseite')}</a></p>
+      <LanguageSwitcher />
+      <h1>{t('Impressum')}</h1>
 
-      <h2>Medieninhaber und Betreiber</h2>
+      <h2>{t('Medieninhaber und Betreiber')}</h2>
       <p>
-        [Offizieller Vereinsname]
+        {t('[Offizieller Vereinsname]')}
         <br />
-        [Straße und Hausnummer]
+        {t('[Straße und Hausnummer]')}
         <br />
-        [PLZ] Wien, Österreich
+        {t('[PLZ] Wien, Österreich')}
       </p>
 
-      <h2>Vereinsinformationen</h2>
+      <h2>{t('Vereinsinformationen')}</h2>
       <p>
-        ZVR-Zahl: [ZVR-Zahl]
+        {t('ZVR-Zahl: [ZVR-Zahl]')}
         <br />
-        Vertretungsberechtigte Personen:
-        [Namen]
+        {t('Vertretungsberechtigte Personen: [Namen]')}
       </p>
 
-      <h2>Kontakt</h2>
+      <h2>{t('Kontakt')}</h2>
       <p>
-        E-Mail: [Kontaktadresse]
+        {t('E-Mail: [Kontaktadresse]')}
       </p>
 
-      <h2>Grundlegende Richtung</h2>
+      <h2>{t('Grundlegende Richtung')}</h2>
       <p>
-        Diese Webseite informiert über die
-        Kurbelkunst Winter Games, eine
-        GPS-Art-Radchallenge des Kurbel
-        Kollektiv Wien.
+        {t('Diese Webseite informiert über die Kurbelkunst Winter Games, eine GPS-Art-Radchallenge des Kurbel Kollektiv Wien.')}
       </p>
 
       <p>
-        Die Webseite dient der Information
-        über die Veranstaltung und der
-        Förderung gemeinschaftlicher
-        Fahrradaktivitäten.
+        {t('Die Webseite dient der Information über die Veranstaltung und der Förderung gemeinschaftlicher Fahrradaktivitäten.')}
       </p>
     </main>
   );

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { ArrowDownToLine, ArrowRight, Asterisk, Bike, CalendarDays, ChevronRight, ExternalLink, Flag, Heart, Instagram, Map, Menu, Mountain, Route, Snowflake, Sparkle, Sparkles, Trophy, Users, Wind, X, Check, LockKeyhole, AlertTriangle, } from 'lucide-react';
 import './styles.css';
 import Impressum from "./pages/Impressum";
+import { I18nProvider, LanguageSwitcher, useI18n } from './i18n';
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -11,12 +12,12 @@ const asset = p => p ? BASE + p.replace(/^\/+/, '') : null;
 const LINKS = { strava: 'https://www.strava.com/clubs/2406705', instagram: 'https://www.instagram.com/kurbelkollektivwien/', komoot: 'https://www.komoot.com/de-de/user/kurbelkollektiv' };
 
 
-function SnowRating({ n }) { return <span className="snowrating" aria-label={n ? `${n} von 5 Schneeflocken` : 'Noch nicht bewertet'}>{Array.from({ length: 5 }, (_, i) => <Snowflake key={i} size={15} strokeWidth={2.3} className={n && i < n ? 'active' : ''} />)}
+function SnowRating({ n }) { const { t } = useI18n(); return <span className="snowrating" aria-label={n ? t('{n} von 5 Schneeflocken', { n }) : t('Noch nicht bewertet')}>{Array.from({ length: 5 }, (_, i) => <Snowflake key={i} size={15} strokeWidth={2.3} className={n && i < n ? 'active' : ''} />)}
 </span>; }
 
-function MotifCard({ m, index }) { let live = m.status === 'available' && m.gpx;
+function MotifCard({ m, index }) { const { t, tm, locale } = useI18n(); let live = m.status === 'available' && m.gpx;
 return <article className={'motif-card ' + (!live ? 'soon' : '')}>
-<div className="motif-image">{m.image ? <img src={asset(m.image)} alt={`GPS-Zeichnung ${m.title}`} loading="lazy" /> : <div className="placeholder">
+<div className="motif-image">{m.image ? <img src={asset(m.image)} alt={t('GPS-Zeichnung {title}', { title: tm(m, 'title') })} loading="lazy" /> : <div className="placeholder">
   <Snowflake size={50} strokeWidth={1} />
   <span>ART IN PROGRESS
   </span>
@@ -28,32 +29,33 @@ return <article className={'motif-card ' + (!live ? 'soon' : '')}>
 </div>
 <div className="motif-content">
   <div className="motif-title">
-    <h3>{m.title}
+    <h3>{tm(m, 'title')}
     </h3>{live ? <span className="status live">READY TO RIDE
   </span> : <span className="status">COMING SOON
 </span>}
 </div>
-<p>{m.subtitle}
+<p>{tm(m, 'subtitle')}
 </p>
 <div className="stats">
   <span>
-    <Route size={17} />{m.distanceKm != null ? `${m.distanceKm.toLocaleString('de-AT')} km` : '— km'}
+    <Route size={17} />{m.distanceKm != null ? `${m.distanceKm.toLocaleString(locale)} km` : '— km'}
   </span>
   <span>
-    <Mountain size={17} />{m.elevationM != null ? `${m.elevationM} hm` : '— hm'}
+    <Mountain size={17} />{m.elevationM != null ? t('{n} hm', { n: m.elevationM }) : t('— hm')}
   </span>
 </div>
 <div className="card-bottom">
   <SnowRating n={m.difficulty} />{live ? <a className="download" href={asset(m.gpx)} download>
-  <ArrowDownToLine size={17} /> GPX laden
+  <ArrowDownToLine size={17} /> {t('GPX laden')}
 </a> : <span className="locked">
-<LockKeyhole size={15} /> Bald verfügbar
+<LockKeyhole size={15} /> {t('Bald verfügbar')}
 </span>}
 </div>
 </div>
 </article>; }
 
 function App() {
+  const { t } = useI18n();
   if (window.location.pathname === "/impressum") {
     return <Impressum />;
   }
@@ -66,7 +68,7 @@ const [mobile, setMobile] = useState(false);
 const [error, setError] = useState(''); useEffect(() => {
 Promise.all([fetch(asset('motifs.json')).then(r => {
 if (!r.ok)
-throw Error('Motivdatei konnte nicht geladen werden');
+throw Error(t('Motivdatei konnte nicht geladen werden'));
 return r.json();
 }), fetch(asset('leaderboard.json')).then(r => r.json())]).then(([m, b]) => { setMotifs(m); setBoard(b); }).catch(e => setError(e.message));
 }, []);
@@ -75,8 +77,8 @@ const rows = [...(rank === 'teams' ? board.teams : board.participants)].sort((a,
 return <>
 <header className="header">
   <div className="header-inner">
-    <button className="brand" onClick={() => nav('winter')} aria-label="Zur Startseite">
-      <img src={asset('images/logo.png')} alt="Kurbel Kollektiv Wien Logo" />
+    <button className="brand" onClick={() => nav('winter')} aria-label={t('Zur Startseite')}>
+      <img src={asset('images/logo.png')} alt={t('Kurbel Kollektiv Wien Logo')} />
       <span>KURBEL<span className="brand-accent">KUNST
       </span>
       <small>BY KURBELKOLLEKTIV WIEN
@@ -93,8 +95,9 @@ return <>
       nav('winter');
       }}>Community
     </a>
+    <LanguageSwitcher />
   </nav>
-  <button className="mobile-toggle" onClick={() => setMobile(!mobile)} aria-label="Menü öffnen">{mobile ? <X /> : <Menu />}
+  <button className="mobile-toggle" onClick={() => setMobile(!mobile)} aria-label={t('Menü öffnen')}>{mobile ? <X /> : <Menu />}
   </button>
 </div>
 </header>{page === 'winter' ? <>
@@ -110,14 +113,14 @@ return <>
       <span className="eyebrow">
         <Snowflake size={16} /> THE WINTER EDITION · 2026/27
       </span>
-      <h1>WIEN IST<br />UNSERE <em>LEINWAND.</em>
+      <h1>{t('WIEN IST')}<br />{t('UNSERE')} <em>{t('LEINWAND.')}</em>
     </h1>
-    <p className="hero-sub">Ein Winter. Dein Rad als Zeichenstift. Mach aus deinen Kilometern kleine Meisterwerke.
+    <p className="hero-sub">{t('Ein Winter. Dein Rad als Zeichenstift. Mach aus deinen Kilometern kleine Meisterwerke.')}
     </p>
     <div className="hero-actions">
-      <a className="btn primary" href="#collection">Motive entdecken <ArrowRight size={19} />
+      <a className="btn primary" href="#collection">{t('Motive entdecken')} <ArrowRight size={19} />
     </a>
-    <a className="btn outline" href="#how">So funktioniert's
+    <a className="btn outline" href="#how">{t("So funktioniert's")}
     </a>
     <a className="btn outline" href="#leaderboard">Leaderboard
     </a>
@@ -128,7 +131,7 @@ return <>
   </div>
   <div className="hero-art">
     <div className="art-orbit">
-      <img src={asset('images/logo.png')} alt="Waschbär-Maskottchen des Kurbel Kollektivs" />
+      <img src={asset('images/logo.png')} alt={t('Waschbär-Maskottchen des Kurbel Kollektivs')} />
     </div>
     <span className="art-spark a"><Asterisk /></span>
 <span className="art-spark b"><Asterisk /></span>
@@ -149,59 +152,56 @@ return <>
 
 <section className="intro container" id="how">
   <div className="intro-left">
-    <span className="kicker">01 / DIE IDEE</span>
+    <span className="kicker">{t('01 / DIE IDEE')}</span>
 
     <h2>
-      WENIGER WINTERSCHLAF.<br />
-      <em>MEHR KURBELKUNST.</em>
+      {t('WENIGER WINTERSCHLAF.')}<br />
+      <em>{t('MEHR KURBELKUNST.')}</em>
     </h2>
 
     <div className="challenge-period">
       <span className="challenge-period-label">
-        CHALLENGE-ZEITRAUM
+        {t('CHALLENGE-ZEITRAUM')}
       </span>
 
       <div className="challenge-period-dates">
         <CalendarDays size={30} strokeWidth={1.8} />
-        <span>01.12.2026 — 28.02.2027</span>
+        <span>{t('01.12.2026 — 28.02.2027')}</span>
       </div>
     </div>
   </div>
 
   <div className="intro-right">
 
-  <p>Grauer Himmel? Kalte Finger? Der innere Schweinehund? Wir haben da was dagegen. Fahr durch Wien, zeichne mit deinem GPS-Track verrückte Motive und sammle deine ganz persönliche Winter-Kunstgalerie.
+  <p>{t('Grauer Himmel? Kalte Finger? Der innere Schweinehund? Wir haben da was dagegen. Fahr durch Wien, zeichne mit deinem GPS-Track verrückte Motive und sammle deine ganz persönliche Winter-Kunstgalerie.')}
   </p>
-  <p>Ob Citybike, Gravelbike oder Rennrad – hier zählen weder Bestzeiten noch Wattwerte. Nur die Lust aufs Losfahren.
+  <p>{t('Ob Citybike, Gravelbike oder Rennrad – hier zählen weder Bestzeiten noch Wattwerte. Nur die Lust aufs Losfahren.')}
   </p>
   <div className="steps">
     <div>
       <b>01</b>
-      <strong>Motiv aussuchen
+      <strong>{t('Motiv aussuchen')}
       </strong>
-      <span>Such dir eine unserer GPS-Zeichnungen aus.
+      <span>{t('Such dir eine unserer GPS-Zeichnungen aus.')}
       </span>
     </div>
     <div>
       <b>02</b>
-      <strong>Track fahren
+      <strong>{t('Track fahren')}
       </strong>
-      <span>GPX laden, navigieren und deine Fahrt aufzeichnen.
+      <span>{t('GPX laden, navigieren und deine Fahrt aufzeichnen.')}
       </span>
     </div>
     <div>
       <b>03</b>
-      <strong>Kunst sammeln
+      <strong>{t('Kunst sammeln')}
       </strong>
       <span>
-        Zeig uns deine Zeichnung und sammle Motive!
-        Tagge uns auf Strava oder Komoot oder schick uns
-        den GPX-Track deiner Aktivität per Mail an{" "}
+        {t('Zeig uns deine Zeichnung und sammle Motive! Tagge uns auf Strava oder Komoot oder schick uns den GPX-Track deiner Aktivität per Mail an')}{" "}
         <a href="mailto:deine-email@example.com">
             deine-email@gmail.com
         </a>
-        {" "}und verrate uns noch deinen Namen, unter dem du
-        auf dem Leaderboard erscheinen möchtest.
+        {" "}{t('und verrate uns noch deinen Namen, unter dem du auf dem Leaderboard erscheinen möchtest.')}
         </span>
     </div>
   </div>
@@ -211,12 +211,12 @@ return <>
   <div className="container">
     <div className="section-head">
       <div>
-        <span className="kicker">02 / DIE COLLECTION
+        <span className="kicker">{t('02 / DIE COLLECTION')}
         </span>
-        <h2>10 MOTIVE.<br />
-        <em>UNENDLICH VIEL SPASS.</em>
+        <h2>{t('10 MOTIVE.')}<br />
+        <em>{t('UNENDLICH VIEL SPASS.')}</em>
       </h2>
-      <p>Jede Linie ist ein kleines Abenteuer. Such dir dein nächstes Kunstwerk aus.
+      <p>{t('Jede Linie ist ein kleines Abenteuer. Such dir dein nächstes Kunstwerk aus.')}
       </p>
     </div>
     <div className="counter">
@@ -224,14 +224,14 @@ return <>
         <span> / 10
         </span>
       </strong>
-      <small>TRACKS VERFÜGBAR
+      <small>{t('TRACKS VERFÜGBAR')}
       </small>
     </div>
   </div>
   <div className="filters">
-    <button className={filter === 'all' ? 'on' : ''} onClick={() => setFilter('all')}>Alle Motive
+    <button className={filter === 'all' ? 'on' : ''} onClick={() => setFilter('all')}>{t('Alle Motive')}
     </button>
-    <button className={filter === 'available' ? 'on' : ''} onClick={() => setFilter('available')}>Jetzt fahrbar
+    <button className={filter === 'available' ? 'on' : ''} onClick={() => setFilter('available')}>{t('Jetzt fahrbar')}
     </button>
     <button className={filter === 'Mini Art' ? 'on' : ''} onClick={() => setFilter('Mini Art')}>Mini Art
     </button>
@@ -246,15 +246,7 @@ return <>
 <p className="notice">
   <AlertTriangle size={80} />
   <span>
-    <strong>Wichtiger Hinweis:</strong> Die GPX-Tracks werden
-    ausschließlich zur Orientierung bereitgestellt. Beim Befahren
-    der Strecken sind sämtliche geltenden österreichischen
-    Straßenverkehrsvorschriften, insbesondere die StVO, sowie
-    Verkehrszeichen, Fahrverbote und etwaige Wegsperren zu beachten.
-    Die Teilnahme und Nutzung der Routen erfolgen auf eigene
-    Verantwortung. Das Kurbelkollektiv Wien übernimmt, soweit
-    gesetzlich zulässig, keine Haftung für Unfälle, Schäden oder
-    die Befahrbarkeit und Richtigkeit der bereitgestellten Routen.
+    <strong>{t('Wichtiger Hinweis:')}</strong> {t('Die GPX-Tracks werden ausschließlich zur Orientierung bereitgestellt. Beim Befahren der Strecken sind sämtliche geltenden österreichischen Straßenverkehrsvorschriften, insbesondere die StVO, sowie Verkehrszeichen, Fahrverbote und etwaige Wegsperren zu beachten. Die Teilnahme und Nutzung der Routen erfolgen auf eigene Verantwortung. Das Kurbelkollektiv Wien übernimmt, soweit gesetzlich zulässig, keine Haftung für Unfälle, Schäden oder die Befahrbarkeit und Richtigkeit der bereitgestellten Routen.')}
   </span>
 </p>
 </div>
@@ -263,23 +255,20 @@ return <>
   
 <div className="section-head">
   <div>
-    <span className="kicker">03 / DIE COMMUNITY</span>
+    <span className="kicker">{t('03 / DIE COMMUNITY')}</span>
 
-    <h2>DIE <em>ART COLLECTORS.</em></h2>
+    <h2>{t('DIE')} <em>ART COLLECTORS.</em></h2>
     <p>
-      Keine Bestzeiten. Hier zählt, wie viele unterschiedliche
-      Kunstwerke du gesammelt hast.
+      {t('Keine Bestzeiten. Hier zählt, wie viele unterschiedliche Kunstwerke du gesammelt hast.')}
     </p>
   </div>
 
   <div className="award-teaser">
     <div className="award-teaser-text">
-      <strong>DER KÜNSTLER DES WINTERS?</strong>
+      <strong>{t('DER KÜNSTLER DES WINTERS?')}</strong>
 
       <span>
-        Die fleißigsten Art Collectors dürfen sich
-        beim Grande Finale über eine kleine
-        Siegerehrung freuen.
+        {t('Die fleißigsten Art Collectors dürfen sich beim Grande Finale über eine kleine Siegerehrung freuen.')}
       </span>
     </div>
 
@@ -290,18 +279,18 @@ return <>
 <div className="board">
   <div className="board-head">
     <div className="board-tabs">
-      <button className={rank === 'art' ? 'active' : ''} onClick={() => setRank('art')}>Einzelwertung · Motive
+      <button className={rank === 'art' ? 'active' : ''} onClick={() => setRank('art')}>{t('Einzelwertung · Motive')}
       </button>
-      <button className={rank === 'km' ? 'active' : ''} onClick={() => setRank('km')}>Kilometer
+      <button className={rank === 'km' ? 'active' : ''} onClick={() => setRank('km')}>{t('Kilometer')}
       </button>
       <button className={rank === 'teams' ? 'active' : ''} onClick={() => setRank('teams')}>Teams
       </button>
     </div>
   </div>{rows.length === 0 ? <div className="empty">
   <Sparkles size={32} />
-  <h3>Die Bühne ist noch frei!
+  <h3>{t('Die Bühne ist noch frei!')}
   </h3>
-  <p>Hier erscheinen die Art Collectors, sobald die Challenge gestartet ist. Die Rangliste wird über <code>public/leaderboard.json</code> gepflegt.
+  <p>{t('Hier erscheinen die Art Collectors, sobald die Challenge gestartet ist. Die Rangliste wird über')} <code>public/leaderboard.json</code> {t('gepflegt.')}
   </p>
 </div> : <div className="board-rows">{rows.map((p, i) => <div className="board-row" key={p.name}>
 <span className="ranknum">{String(i + 1).padStart(2, '0')}
@@ -312,7 +301,7 @@ return <>
   <span style={{ width: `${Math.min(100, (p.completed || 0) / 10 * 100)}%` }} />
 </div>
 <b>{p.completed || 0}
-<small>/10 Motive
+<small>{t('/10 Motive')}
 </small>
 </b>
 <span>{p.km || 0} km
@@ -322,34 +311,32 @@ return <>
 </div>
  <div className="submission-notice">
   <div className="submission-notice-title">
-  SO KOMMST DU AUFS LEADERBOARD
+  {t('SO KOMMST DU AUFS LEADERBOARD')}
   </div>
 
   <p>
-    Zeig uns deine Zeichnung! Tagge uns auf Strava oder Komoot
-    oder schick uns den GPX-Track deiner Aktivität per Mail an{" "}
+    {t('Zeig uns deine Zeichnung! Tagge uns auf Strava oder Komoot oder schick uns den GPX-Track deiner Aktivität per Mail an')}{" "}
     <a href="mailto:deine-email@gmail.com">
       deine-email@gmail.com
     </a>
-    . Verrate uns außerdem, unter welchem Namen du auf dem
-    Leaderboard erscheinen möchtest.
+    {t('. Verrate uns außerdem, unter welchem Namen du auf dem Leaderboard erscheinen möchtest.')}
   </p>
 </div>
 </section>
 <section className="finale-promo">
   <div className="container promo-inner">
     <div>
-      <span className="kicker">04 / DAS GROSSE FINALE
+      <span className="kicker">{t('04 / DAS GROSSE FINALE')}
       </span>
       <h2>ONE TRACK <br />
       <em>ONE TEAM</em>
     </h2>
-    <p> Den Künstler in dir entdeckt?! Dann bleib gespannt! Wir haben noch etwas Großes vor.
+    <p> {t('Den Künstler in dir entdeckt?! Dann bleib gespannt! Wir haben noch etwas Großes vor.')}
     </p>
-    <button className="btn primary" onClick={() => nav('finale')}>Psssst ... Bald mehr! <ArrowRight size={18} />
+    <button className="btn primary" onClick={() => nav('finale')}>{t('Psssst ... Bald mehr!')} <ArrowRight size={18} />
   </button>
 </div>
-<img src={asset('images/logo.png')} alt="Kurbel Kollektiv Waschbär" />
+<img src={asset('images/logo.png')} alt={t('Kurbel Kollektiv Waschbär')} />
 </div>
 </section>
 </> : <main className="finale-page">
@@ -362,15 +349,14 @@ return <>
 </h1>
 <p className="finale-intro">
   <strong className="finale-aufgewaermt">
-    AUFGEWÄRMT?!
+    {t('AUFGEWÄRMT?!')}
   </strong>
   <br />
-  Zum Abschluss der Winter Games wird Wien nochmals
-  zu unserer Leinwand.
+  {t('Zum Abschluss der Winter Games wird Wien nochmals zu unserer Leinwand.')}
 </p>
 
 <div className="finale-banner">
-  <img src={asset('images/logo.png')} alt="Waschbär-Logo" />
+  <img src={asset('images/logo.png')} alt={t('Waschbär-Logo')} />
   <div>
     <span className="kicker">DIE FINAL MISSION
     </span>
@@ -387,30 +373,30 @@ return <>
     <Users />
     <h3>TEAM UP
     </h3>
-    <p>Finde deine Crew.
+    <p>{t('Finde deine Crew.')}
     </p>
   </div>
   <div>
     <Bike />
     <h3>RIDE YOUR LINE
     </h3>
-    <p>Fahrt zusammen oder teilt euch auf. Kein Rennen, sondern ein gemeinsames Projekt.
+    <p>{t('Fahrt zusammen oder teilt euch auf. Kein Rennen, sondern ein gemeinsames Projekt.')}
     </p>
   </div>
   <div>
     <Heart />
     <h3>CELEBRATE
     </h3>
-    <p>Tracks zusammensetzen, das Kunstwerk enthüllen und gemeinsam feiern.
+    <p>{t('Tracks zusammensetzen, das Kunstwerk enthüllen und gemeinsam feiern.')}
     </p>
   </div>
 </div>
 <div className="finale-note">
   <CalendarDays />
   <div>
-    <strong>Termin & Treffpunkt folgen.
+    <strong>{t('Termin & Treffpunkt folgen.')}
     </strong>
-    <p>Details zur Anmeldung, Streckenaufteilung und Abschlussparty veröffentlichen wir hier, sobald sie feststehen.
+    <p>{t('Details zur Anmeldung, Streckenaufteilung und Abschlussparty veröffentlichen wir hier, sobald sie feststehen.')}
     </p>
   </div>
 </div>
@@ -422,7 +408,7 @@ return <>
       <img src={asset('images/logo.png')} alt="Kurbel Kollektiv Wien" />
       <h2>KURBELKUNST.
       </h2>
-      <p>Ride it. Draw it. Collect it.<br />Eine Winter Challenge vom Kurbelkollektiv Wien.
+      <p>Ride it. Draw it. Collect it.<br />{t('Eine Winter Challenge vom Kurbelkollektiv Wien.')}
       </p>
     </div>
     <div>
@@ -445,16 +431,16 @@ return <>
 </div>
 </div>
 <div className="container footer-bottom">
-  <span>© {new Date().getFullYear()} Kurbelkollektiv Wien · Community-Projekt
+  <span>© {new Date().getFullYear()} Kurbelkollektiv Wien · {t('Community-Projekt')}
   </span>
   <span>MADE FOR COLD DAYS & GOOD RIDES
   </span>
   <a href="/impressum" className="footer-link">
-    Impressum
+    {t('Impressum')}
   </a>
 </div>
 </footer>
 </>;
 }
 ;
-createRoot(document.getElementById('root')).render(<App />);
+createRoot(document.getElementById('root')).render(<I18nProvider><App /></I18nProvider>);
