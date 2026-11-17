@@ -19,8 +19,8 @@
     "distanceKm": 21.6,
     "elevationM": 123,
     "difficulty": 3,
-    "image": "images/weihnachtsmütze.png",
-    "gpx": "tracks/weihnachtsmütze_gezeichnet.gpx",
+    "image": "images/weihnachtsmuetze.png",
+    "gpx": "tracks/weihnachtsmuetze_gezeichnet.gpx",
     "status": "available",
     "category": "Medium Art"
   },
