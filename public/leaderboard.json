@@ -1,0 +1,10 @@
+{
+  "updated": "2026-12-01",
+  "participants": [
+    {"name":"Winterfuchs","completed":4,"km":87.5},
+    {"name":"Kritzelbär","completed":2,"km":51.2}
+  ],
+  "teams": [
+    {"name":"Team Waschbär","completed":6,"km":150.3}
+  ]
+}

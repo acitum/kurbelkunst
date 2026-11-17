@@ -1,0 +1,126 @@
+
+[
+  {
+    "id": "gluecksblatt",
+    "title": "Kleeblatt",
+    "subtitle": "Vier Blätter, ganz viel Glück.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Medium Art"
+  },
+  {
+    "id": "weihnachtsart",
+    "title": "2 Reifen statt 4 Hufe",
+    "subtitle": "Rudolf hat heute seinen freien Tag! Santa muss selber strampeln! ",
+    "distanceKm": 21.6,
+    "elevationM": 123,
+    "difficulty": 3,
+    "image": "images/weihnachtsmütze.png",
+    "gpx": "tracks/weihnachtsmütze_gezeichnet.gpx",
+    "status": "available",
+    "category": "Medium Art"
+  },
+  {
+    "id": "art-03",
+    "title": "Herzenssache",
+    "subtitle": "Liebe geht durch die Pedale.",
+    "distanceKm": 49.1,
+    "elevationM": 518,
+    "difficulty": 4,
+    "image": "images/herz.png",
+    "gpx": "tracks/herz.gpx",
+    "status": "available",
+    "category": "Big Art"
+  },
+  
+  {
+    "id": "art-04",
+    "title": "LEAF IT TO ME.",
+    "subtitle": "Goldene Blätter, kühle Luft.",
+    "distanceKm": 17.5,
+    "elevationM": 164,
+    "difficulty": 1,
+    "image": "images/herbstblatt.png",
+    "gpx": "tracks/herbstblatt.gpx",
+    "status": "available",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-05",
+    "title": "Kritzelrunde",
+    "subtitle": "Nicht geradeaus ist auch ein Weg.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-06",
+    "title": "Schneegestöber",
+    "subtitle": "Kleine Spuren, große Freude.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-07",
+    "title": "Wiener Wirbel",
+    "subtitle": "Kurven sind Kunst.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-08",
+    "title": "Nachtfalter",
+    "subtitle": "Wenn die Stadt leuchtet.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-09",
+    "title": "Kettenreaktion",
+    "subtitle": "Ein Strich führt zum nächsten.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  },
+  {
+    "id": "art-10",
+    "title": "Winterlinie",
+    "subtitle": "Immer der Zeichnung nach.",
+    "distanceKm": null,
+    "elevationM": null,
+    "difficulty": null,
+    "image": null,
+    "gpx": null,
+    "status": "soon",
+    "category": "Mini Art"
+  }
+  
+  
+]
