@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowDownToLine, ArrowRight, Bike, CalendarDays, ChevronRight, ExternalLink, Flag, Heart, Instagram, Map, Menu, Mountain, Route, Snowflake, Sparkles, Trophy, Users, Wind, X, Check, LockKeyhole, AlertTriangle, } from 'lucide-react';
+import { ArrowDownToLine, ArrowRight, Asterisk, Bike, CalendarDays, ChevronRight, ExternalLink, Flag, Heart, Instagram, Map, Menu, Mountain, Route, Snowflake, Sparkle, Sparkles, Trophy, Users, Wind, X, Check, LockKeyhole, AlertTriangle, } from 'lucide-react';
 import './styles.css';
 import Impressum from "./pages/Impressum";
 
@@ -126,15 +126,21 @@ return <>
     <div className="art-orbit">
       <img src={asset('images/logo.png')} alt="Waschbär-Maskottchen des Kurbel Kollektivs" />
     </div>
-    <span className="art-spark a">✳</span>
-    <span className="art-spark b">✳</span>
-    <span className="art-spark c">✦</span>
+    <span className="art-spark a"><Asterisk /></span>
+<span className="art-spark b"><Asterisk /></span>
+<span className="art-spark c"><Sparkle /></span>
   </div>
 </div>
 </section>
 <section className="ticker">
-  <div>NO RACING <span>✳</span> JUST DRAWING <span>✳</span> ALL BIKES WELCOME <span>✳</span> WINTER IS FOR RIDING <span>✳</span> NO RACING <span>✳</span> JUST DRAWING
-  </div>
+  <div>
+  NO RACING <span><Asterisk /></span>
+  JUST DRAWING <span><Asterisk /></span>
+  ALL BIKES WELCOME <span><Asterisk /></span>
+  WINTER IS FOR RIDING <span><Asterisk /></span>
+  NO RACING <span><Asterisk /></span>
+  JUST DRAWING
+</div>
 </section>
 
 <section className="intro container" id="how">
