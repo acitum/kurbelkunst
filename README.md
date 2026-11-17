@@ -188,3 +188,19 @@ Die Seite ist zweisprachig; oben rechts gibt es einen Sprachumschalter. Die Wahl
 - **Fehlt eine Übersetzung, wird der deutsche Text angezeigt** – neue oder geänderte Texte machen also nichts kaputt.
 - `npm run i18n:check` listet fehlende und veraltete Übersetzungen auf.
 - **Neue Sprache:** `src/locales/en.js` kopieren (z. B. `fr.js`), übersetzen und in `LANGUAGES` in `src/i18n.jsx` eintragen.
+
+### KI-Hinweis (nur Mehrsprachigkeit)
+
+Die Mehrsprachigkeit wurde mit Hilfe von KI erstellt: mit **Claude** (Anthropic), über **Claude Code**. Das betrifft:
+
+- den Sprachumschalter und die Übersetzungslogik (`src/i18n.jsx`, `src/i18n.css`),
+- die englischen Übersetzungen (`src/locales/en.js`),
+- das Prüfskript (`scripts/check-i18n.mjs`),
+- das Umschließen der deutschen Texte mit `t('…')` in den bestehenden Komponenten,
+- diesen README-Abschnitt.
+
+Die Änderungen wurden im Browser getestet (beide Sprachen, Desktop und Handy). **Die englischen Texte sind bisher nicht von einem Menschen gegengelesen.** Vor allem die Rechtstexte (Impressum, Hinweis zur StVO) sind unverbindliche Übersetzungen; maßgeblich ist die deutsche Fassung.
+
+Dieser Hinweis gilt nur für die oben genannten Ergänzungen, nicht für die übrige Webseite.
+
+*AI notice (translation only): the multi-language support and English translations listed above were created with Claude (Anthropic) via Claude Code. The English texts have not yet been reviewed by a human; for legal texts the German version prevails. This notice covers only these additions, not the rest of the site.*
