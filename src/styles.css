@@ -219,3 +219,12 @@
   stroke-width: 2.5;
   vertical-align: middle;
 }
+/* Dekorative Sterne als Lucide-SVG */
+
+.hero-deco svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  stroke: currentColor;
+  stroke-width: 2.5;
+}

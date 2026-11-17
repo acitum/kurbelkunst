@@ -99,8 +99,12 @@ return <>
 </div>
 </header>{page === 'winter' ? <>
 <section className="hero">
-  <div className="hero-deco one">✳</div>
-  <div className="hero-deco two">✳</div>
+  <div className="hero-deco one">
+    <Asterisk />
+  </div>
+  <div className="hero-deco two">
+    <Asterisk />
+  </div>
   <div className="hero-inner">
     <div className="hero-copy">
       <span className="eyebrow">
