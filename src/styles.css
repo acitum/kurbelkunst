@@ -228,3 +228,22 @@
   stroke: currentColor;
   stroke-width: 2.5;
 }
+/* GRANDE FINALE – Stay Tuned auf dem Handy */
+
+@media (max-width: 600px) {
+  .finale-stay-tuned {
+    position: static;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+
+    margin-top: 36px;
+    padding-right: 0;
+
+    font-size: clamp(20px, 6vw, 30px);
+    line-height: 1.2;
+    text-align: right;
+    white-space: normal;
+    overflow-wrap: normal;
+  }
+}
