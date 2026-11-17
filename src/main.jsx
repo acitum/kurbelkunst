@@ -188,7 +188,7 @@ return <>
         Tagge uns auf Strava oder Komoot oder schick uns
         den GPX-Track deiner Aktivität per Mail an{" "}
         <a href="mailto:deine-email@example.com">
-            deine-email@example.com
+            deine-email@gmail.com
         </a>
         {" "}und verrate uns noch deinen Namen, unter dem du
         auf dem Leaderboard erscheinen möchtest.
@@ -256,7 +256,6 @@ return <>
     <span className="kicker">03 / DIE COMMUNITY</span>
 
     <h2>DIE <em>ART COLLECTORS.</em></h2>
-
     <p>
       Keine Bestzeiten. Hier zählt, wie viele unterschiedliche
       Kunstwerke du gesammelt hast.
@@ -310,6 +309,21 @@ return <>
 </span>
 </div>)}
 </div>}
+</div>
+ <div className="submission-notice">
+  <div className="submission-notice-title">
+  SO KOMMST DU AUFS LEADERBOARD
+  </div>
+
+  <p>
+    Zeig uns deine Zeichnung! Tagge uns auf Strava oder Komoot
+    oder schick uns den GPX-Track deiner Aktivität per Mail an{" "}
+    <a href="mailto:deine-email@gmail.com">
+      deine-email@gmail.com
+    </a>
+    . Verrate uns außerdem, unter welchem Namen du auf dem
+    Leaderboard erscheinen möchtest.
+  </p>
 </div>
 </section>
 <section className="finale-promo">
